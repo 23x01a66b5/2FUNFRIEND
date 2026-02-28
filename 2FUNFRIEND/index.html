@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>2FUNFRIEND PRO</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="top-bar">
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+</div>
+<div class="container">
+
+<h1>2FUNFRIEND</h1>
+<p class="subtitle">Master Telugu From Beginner to Professional</p>
+
+<div class="card">
+<h2>Your Stats</h2>
+<p>Level: <span id="level"></span></p>
+<div class="levelBar">
+<div id="levelProgress"></div>
+</div>
+<p>XP: <span id="xp"></span></p>
+<p>Streak: 🔥 <span id="streak"></span></p>
+<p>Badge: <span id="badge"></span></p>
+</div>
+
+<div class="card">
+<h2>Categories</h2>
+
+<button onclick="start('animals')" class="btn">Animals</button>
+<button onclick="start('food')" class="btn">Food</button>
+<button onclick="start('basics')" class="btn">Basics</button>
+<button onclick="start('travel')" class="btn">Travel ✈️</button>
+<button onclick="start('emotions')" class="btn">Emotions 😊</button>
+<button onclick="start('daily')" class="btn gold">Daily Challenge ⭐</button>
+
+</div>
+</div>
+
+<script>
+function start(cat){
+localStorage.setItem("category",cat);
+window.location="lesson.html";
+}
+
+function update(){
+document.getElementById("xp").innerText = localStorage.getItem("xp") || 0;
+document.getElementById("level").innerText = localStorage.getItem("level") || 1;
+document.getElementById("streak").innerText = localStorage.getItem("streak") || 0;
+document.getElementById("badge").innerText = localStorage.getItem("badge") || "Beginner";
+let xpVal = parseInt(localStorage.getItem("xp")) || 0;
+let percent = xpVal % 100;
+document.getElementById("levelProgress").style.width = percent + "%";
+}
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+
+let isLight = document.body.classList.contains("light");
+
+localStorage.setItem("theme", isLight ? "light" : "dark");
+
+document.getElementById("themeBtn").innerText = isLight ? "☀️" : "🌙";
+}
+ 
+
+window.onload = function(){
+
+let savedTheme = localStorage.getItem("theme");
+
+if(savedTheme=="light"){
+document.body.classList.add("light");
+document.getElementById("themeBtn").innerText = "☀️";
+}else{
+document.getElementById("themeBtn").innerText = "🌙";
+}
+
+update();
+
+}
+</script>
+
+</body>
+</html>
